@@ -1,9 +1,9 @@
-var myVar = 0;
+const packageName = require('packageName');
+const convertBtn = document.getElementById('convertBtn');
+const numInput = document.getElementById('intnum');
 
-function myFunc(){
-    myVar += 1;
-}
+let userInput = numInput.nodeValue;
 
-myFunc();
-myFunc();
-console.log(myVar);
+console.log(userInput);
+
+convertBtn.addEventListener('click', convertToRoman())

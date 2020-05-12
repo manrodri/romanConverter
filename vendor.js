@@ -226,32 +226,56 @@ function addIs(num) {
 function convertToRoman(num) {
   let numberRemaining;
   if (anyPrimitives(num, 1000)) {
-     numberRemaining = getPrimitives(num, 1000);
-     addMs(numberOfMs, 'M');
-     console.log(`result: ${result}`);
-  } else if(anyPrimitives(num, 100)){
+    numberRemaining = getPrimitives(num, 1000);
+    addMs(numberOfMs, 'M');
+    if (numberRemaining % 1000 === 0) {
+      return result;
+    } else {
+      numberRemaining = getPrimitives(num, 100);
+      addCs(numberOfCs);
+      if (numberRemaining % 100 === 0) {
+        return result;
+      } else {
+        numberRemaining = getPrimitives(numberRemaining, 10);
+        addXs(numberOfXs);
+        if (numberRemaining % 10 === 0) {
+          return result;
+        } else {
+          numberRemaining = getPrimitives(numberRemaining, 1);
+          addIs(numberOfIs);
+        }
+      }
+    }
+  } else if (anyPrimitives(num, 100)) {
     numberRemaining = getPrimitives(num, 100);
     addCs(numberOfCs);
-  } else if(anyPrimitives(num, 10)){
-      numberRemaining = getPrimitives(num, 10);
+    if (numberRemaining % 100 === 0) {
+      return result;
+    } else {
+      numberRemaining = getPrimitives(numberRemaining, 10);
       addXs(numberOfXs);
-      if (numberRemaining % 10 === 0){
-          return result;
+      if (numberRemaining % 10 === 0) {
+        return result;
       } else {
         numberRemaining = getPrimitives(numberRemaining, 1);
         addIs(numberOfIs);
       }
-
-
-  } else {
-      numberRemaining = getPrimitives(num, 1);
+    }
+  } else if (anyPrimitives(num, 10)) {
+    numberRemaining = getPrimitives(num, 10);
+    addXs(numberOfXs);
+    if (numberRemaining % 10 === 0) {
+      return result;
+    } else {
+      numberRemaining = getPrimitives(numberRemaining, 1);
       addIs(numberOfIs);
+    }
+  } else {
+    numberRemaining = getPrimitives(num, 1);
+    addIs(numberOfIs);
   }
   return result;
 }
-
-  
-
 
 
 // console.log(convertToRoman(2));
@@ -267,9 +291,9 @@ function convertToRoman(num) {
 // convertToRoman(45);
 // convertToRoman(68);
 // convertToRoman(83);
-console.log(convertToRoman(97));
+// console.log(convertToRoman(97));
 // console.log(convertToRoman(99));
-// convertToRoman(400);
+// console.log(convertToRoman(1000));
 // convertToRoman(500);
 // convertToRoman(501);
 // convertToRoman(649);
@@ -281,3 +305,15 @@ console.log(convertToRoman(97));
 // convertToRoman(1023);
 // convertToRoman(2014);
 // convertToRoman(3999);
+
+const convertBtn = document.getElementById('convertBtn');
+const numInput = document.getElementById('intnum');
+
+
+
+convertBtn.addEventListener('click', () => {
+  let userInput = numInput.value;
+  let result = convertToRoman(userInput);
+  alert(result);
+
+})
